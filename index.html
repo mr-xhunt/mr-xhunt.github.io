@@ -34,6 +34,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
             padding: 150px 50px;
             background: url('dark-theme-bg.jpg') no-repeat center center/cover;
             color: #fff;
@@ -42,8 +43,13 @@
         }
         .hero-section h1 {
             font-size: 48px;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             color: #007bff;
+        }
+        .hero-section h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #e0e0e0;
         }
         .hero-section p {
             font-size: 20px;
@@ -58,6 +64,7 @@
             font-size: 18px;
             cursor: pointer;
             transition: background-color 0.3s;
+            text-decoration: none;
         }
         .hero-section .cta:hover {
             background-color: #0056b3;
@@ -113,16 +120,14 @@
     <nav>
         <a href="#services">Services</a>
         <a href="#threat-modeling">Threat Modeling</a>
-        <a href="#clients">Clients</a>
         <a href="#contact">Contact</a>
     </nav>
 
     <section class="hero-section">
-        <div class="content">
-            <h1>Penetration Testing & Consultancy</h1>
-            <p>Expert services in securing your digital assets. Specializing in Web, Cloud, and Threat Modeling solutions.</p>
-            <button class="cta">Book a Consultation</button>
-        </div>
+        <h1>Mayank Kumar Choubey</h1>
+        <h2>Penetration Testing & Consultancy</h2>
+        <p>Expert services in securing your digital assets. Specializing in Web, Cloud, and Threat Modeling solutions.</p>
+        <a href="mailto:mayankchoubey507@gmail.com" class="cta">Book a Consultation</a>
     </section>
 
     <section id="services" class="services">
@@ -141,16 +146,10 @@
         </div>
     </section>
 
-    <section id="clients" class="services">
-        <h2>Trusted by Leading Clients</h2>
-        <p>Our work speaks for itself, with a track record of success with top-tier clients.</p>
-        <!-- Add client testimonials here -->
-    </section>
-
     <section id="contact" class="contact">
         <h2>Get in Touch</h2>
         <p><strong>Email:</strong> <a href="mailto:mayankchoubey507@gmail.com" style="color: #007bff;">mayankchoubey507@gmail.com</a></p>
-        <button class="cta">Contact Us</button>
+        <a href="mailto:mayankchoubey507@gmail.com" class="cta">Contact Us</a>
     </section>
 
     <footer>
