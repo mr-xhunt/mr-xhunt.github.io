@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mayank Kumar Choubey | Security Engineer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --background: #f8f9fa;
+            --text: #212529;
+            --primary: #4a6bff;
+            --secondary: #6c757d;
+            --accent: #00c8ff;
+            --card-bg: #ffffff;
+            --border: #e0e3e7;
+            --hover: #f0f2f5;
+            --danger: #ff4757;
+            --success: #2ed573;
+            --warning: #ffa502;
+            --glass: rgba(255, 255, 255, 0.8);
+            --glass-dark: rgba(30, 30, 30, 0.8);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            --inner-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .dark-mode {
+            --background: #121212;
+            --text: #f8f9fa;
+            --primary: #5a7bff;
+            --secondary: #adb5bd;
+            --accent: #00d8ff;
+            --card-bg: #1e1e1e;
+            --border: #343a40;
+            --hover: #2d3136;
+            --glass: rgba(30, 30, 30, 0.8);
+            --glass-dark: rgba(10, 10, 10, 0.8);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --inner-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s, color 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(74, 107, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 200, 255, 0.05) 0%, transparent 20%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 1.5rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--primary);
+            color: white;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            z-index: 100;
+            border: none;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(15deg);
+            box-shadow: 0 0 20px var(--primary);
+        }
+
+        .profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .profile::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                transparent 0%,
+                transparent 45%,
+                var(--primary) 50%,
+                transparent 55%,
+                transparent 100%
+            );
+            opacity: 0.1;
+            animation: shine 8s infinite linear;
+            z-index: -1;
+        }
+
+        @keyframes shine {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .profile h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile h2 {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text);
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            background-color: var(--card-bg);
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+            font-weight: 500;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .contact-item:hover i {
+            color: white;
+        }
+
+        section {
+            margin-bottom: 3rem;
+            padding: 2.5rem;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+            opacity: 0.7;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 3px solid var(--primary);
+            color: var(--primary);
+            font-weight: 600;
+            display: inline-block;
+            position: relative;
+        }
+
+        section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        .summary p {
+            text-align: justify;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            color: var(--text);
+        }
+
+        .experience-item {
+            margin-bottom: 2.5rem;
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .experience-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+            border-radius: 3px;
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .experience-company {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .experience-role {
+            font-weight: 500;
+            color: var(--secondary);
+            margin-left: 0.5rem;
+        }
+
+        .experience-date {
+            font-style: italic;
+            color: var(--secondary);
+            background: var(--hover);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+        }
+
+        .experience-details ul {
+            list-style-type: none;
+            padding-left: 1.5rem;
+        }
+
+        .experience-details li {
+            position: relative;
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .experience-details li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.7rem;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--primary);
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .skill-category {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .skill-category h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+            font-weight: 600;
+            position: relative;
+            display: inline-block;
+        }
+
+        .skill-category h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .skill-tag {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.7rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+        }
+
+        .skill-tag:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .skill-tag i {
+            margin-right: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .soft-skill-tag {
+            background-color: var(--secondary);
+        }
+
+        .achievements-list, .certificates-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .achievements-list li, .certificates-list li {
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            background-color: var(--hover);
+            border-radius: 12px;
+            position: relative;
+            padding-left: 4rem;
+            box-shadow: var(--inner-shadow);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--primary);
+        }
+
+        .achievements-list li:hover, .certificates-list li:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .achievements-list li::before, .certificates-list li::before {
+            content: '';
+            position: absolute;
+            left: 1.5rem;
+            top: 1.5rem;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: white;
+        }
+
+        .achievements-list li::before {
+            background-color: var(--warning);
+            content: '🏆';
+        }
+
+        .certificates-list li::before {
+            background-color: var(--success);
+            content: '🎓';
+        }
+
+        .education-item {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: var(--hover);
+            border-radius: 12px;
+            box-shadow: var(--inner-shadow);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--accent);
+        }
+
+        .education-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .education-institution {
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .education-degree {
+            color: var(--secondary);
+            font-size: 1rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 5rem;
+            border-top: 1px solid var(--border);
+            color: var(--secondary);
+            font-size: 1rem;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: 3px;
+        }
+
+        /* Security-themed elements */
+        .security-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: linear-gradient(to right, var(--danger), #ff6b81);
+            color: white;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            margin-left: 0.8rem;
+            font-weight: 600;
+            box-shadow: 0 2px 5px rgba(220, 53, 69, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(220, 53, 69, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
+            }
+        }
+
+        .security-icon {
+            animation: pulse 2s infinite;
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            line-height: 24px;
+            text-align: center;
+            border-radius: 50%;
+            background-color: var(--danger);
+            color: white;
+            margin-right: 0.8rem;
+            font-size: 0.8rem;
+        }
+
+        /* Floating elements */
+        .floating-shape {
+            position: fixed;
+            border-radius: 50%;
+            opacity: 0.1;
+            z-index: 0;
+            filter: blur(40px);
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--primary);
+            top: 10%;
+            left: 5%;
+            animation: float 15s ease-in-out infinite;
+        }
+
+        .shape-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--accent);
+            bottom: 10%;
+            right: 5%;
+            animation: float 18s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            50% {
+                transform: translate(50px, 50px) rotate(180deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+            }
+        }
+
+        /* Responsive design */
+        @media (max-width: 992px) {
+            .container {
+                padding: 1.5rem;
+            }
+
+            .profile h1 {
+                font-size: 2.5rem;
+            }
+
+            .profile h2 {
+                font-size: 1.5rem;
+            }
+
+            section {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .profile {
+                padding: 2rem 1rem;
+            }
+
+            .profile h1 {
+                font-size: 2rem;
+            }
+
+            .profile h2 {
+                font-size: 1.3rem;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .contact-item {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .experience-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .experience-date {
+                margin-top: 0.5rem;
+                margin-left: 0;
+            }
+
+            section {
+                padding: 1.5rem;
+            }
+
+            .skills-container {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .profile h1 {
+                font-size: 1.8rem;
+            }
+
+            .profile h2 {
+                font-size: 1.2rem;
+            }
+
+            section h2 {
+                font-size: 1.6rem;
+            }
+
+            .experience-company {
+                font-size: 1.2rem;
+            }
+
+            .experience-role {
+                display: block;
+                margin-left: 0;
+                margin-top: 0.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating background shapes -->
+    <div class="floating-shape shape-1"></div>
+    <div class="floating-shape shape-2"></div>
+    
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </div>
+    
+    <div class="container">
+        <div class="profile">
+            <h1>Mayank Kumar Choubey</h1>
+            <h2>Security Engineer <span class="security-badge">Ethical Hacker</span></h2>
+            
+            <div class="contact-info">
+                <a href="mailto:mayankchoubey507@gmail.com" class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    mayankchoubey507@gmail.com
+                </a>
+                <a href="https://www.linkedin.com/in/mayankcby/" target="_blank" class="contact-item">
+                    <i class="fab fa-linkedin"></i>
+                    LinkedIn
+                </a>
+                <a href="https://github.com/mr-xhunt" target="_blank" class="contact-item">
+                    <i class="fab fa-github"></i>
+                    GitHub
+                </a>
+                <a href="https://www.bugbountyhunter.com/hunter/mr_xhunt" target="_blank" class="contact-item">
+                    <i class="fas fa-bug"></i>
+                    Mr_Xhunt
+                </a>
+                <a href="https://blogs.mxhunt.in" target="_blank" class="contact-item">
+    				<i class="fas fa-pen-nib"></i>
+    				Blog
+				</a>
+            </div>
+        </div>
+
+        <section class="summary">
+            <h2>Summary</h2>
+            <p>
+                Passionate and results-driven Security Engineer with over 2 years of experience in web, mobile, API, and cloud penetration testing. 
+                Proven track record in identifying critical vulnerabilities and helping organizations improve their security posture. 
+                Adept at threat modeling, report writing, and secure code review. Ranked among the top 5 globally on Amazon VRP and 
+                actively contributing to the cybersecurity community through technical blogs and talks. Committed to continuous learning 
+                and staying ahead of emerging cyber threats.
+            </p>
+        </section>
+
+        <section class="experience">
+            <h2>Experience</h2>
+            
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div>
+                        <span class="experience-company">Payatu</span>
+                        <span class="experience-role"> - Associate Security Consultant</span>
+                    </div>
+                    <span class="experience-date">Aug 2024 - Present</span>
+                </div>
+                <div class="experience-details">
+                    <ul>
+                        <li>Conduct comprehensive penetration testing on web, mobile (iOS & Android), and API-based applications.</li>
+                        <li>Perform threat modeling to identify potential attack vectors and prioritize risks in target environments.</li>
+                        <li>Engage in cloud security assessments, focusing on misconfigurations and IAM vulnerabilities in AWS environments.</li>
+                        <li>Contribute to technical blogs and knowledge sharing, and participate in internal and external tech talks.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div>
+                        <span class="experience-company">Appsecure Security</span>
+                        <span class="experience-role"> - Security Engineer</span>
+                    </div>
+                    <span class="experience-date">July 2023 - Aug 2024</span>
+                </div>
+                <div class="experience-details">
+                    <ul>
+                        <li>Conduct thorough penetration testing on web applications and mobile applications to identify vulnerabilities and security weaknesses.</li>
+                        <li>Prepare detailed reports outlining the findings of the penetration tests, including specific vulnerabilities discovered and recommended remediation steps.</li>
+                        <li>Collaborate with development teams to implement necessary security fixes and enhancements based on the identified vulnerabilities.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div>
+                        <span class="experience-company">BugBountyHunter</span>
+                        <span class="experience-role"> - Bug Hunter</span>
+                    </div>
+                    <span class="experience-date">May 2022 - Present</span>
+                </div>
+                <div class="experience-details">
+                    <ul>
+                        <li>Conduct penetration testing on web applications, identifying and reporting 170+ bugs</li>
+                        <li>Ranked in the top 3 Bug Bounty Hunters for exceptional performance and level 8 Hacker recognition</li>
+                        <li>Prepare detailed reports outlining the findings of the penetration tests, including specific vulnerabilities discovered and recommended remediation steps</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="skills">
+            <h2>Skills</h2>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3>Technical Skills</h3>
+                    <div class="skill-tags">
+                        <div class="skill-tag"><i class="fas fa-lock"></i> Web App Pen-testing</div>
+                        <div class="skill-tag"><i class="fas fa-code"></i> API Testing</div>
+                        <div class="skill-tag"><i class="fas fa-mobile-alt"></i> Mobile App Testing</div>
+                        <div class="skill-tag"><i class="fas fa-file-code"></i> Source Code Review</div>
+                        <div class="skill-tag"><i class="fab fa-js"></i> JavaScript</div>
+                        <div class="skill-tag"><i class="fab fa-python"></i> Python</div>
+                        <div class="skill-tag"><i class="fas fa-cloud"></i> Cloud Security</div>
+                        <div class="skill-tag"><i class="fab fa-aws"></i> AWS Security</div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Soft Skills</h3>
+                    <div class="skill-tags">
+                        <div class="skill-tag soft-skill-tag"><i class="fas fa-comments"></i> Communication</div>
+                        <div class="skill-tag soft-skill-tag"><i class="fas fa-lightbulb"></i> Problem-Solving</div>
+                        <div class="skill-tag soft-skill-tag"><i class="fas fa-clock"></i> Time Management</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="achievements">
+            <h2>Achievements</h2>
+            <ul class="achievements-list">
+                <li>Ranked Top 5 Globally on Amazon VRP</li>
+                <li>Ranked 3rd in the Bug Bounty Hunter third Hack event</li>
+            </ul>
+        </section>
+
+        <section class="certificates">
+            <h2>Certificates</h2>
+            <ul class="certificates-list">
+                <li>CAP - Certified AppSec Practitioner</li>
+                <li>JPMorgan Chase & Co. - Cyber Security Virtual Experience Program on Forage (June 2023)</li>
+            </ul>
+        </section>
+
+        <section class="education">
+            <h2>Education</h2>
+            <div class="education-item">
+                <div class="education-institution">SPD College, Garhwa</div>
+                <div class="education-degree">BSc. Physics (Hons.) - 9.2 CGPA</div>
+            </div>
+            <div class="education-item">
+                <div class="education-institution">Intermediate Board Examination, C.B.S.E, Class 12th</div>
+                <div class="education-degree">92.8% [PCM]</div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Mayank Kumar Choubey | Security Engineer</p>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const icon = themeToggle.querySelector('i');
+
+        // Check for saved theme preference or default to light mode
+        if (localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark-mode');
+            icon.classList.replace('fa-moon', 'fa-sun');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            // Update icon
+            if (body.classList.contains('dark-mode')) {
+                icon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                icon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Add security-themed interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create a cyber security "detection" effect
+            const container = document.querySelector('.container');
+            let securityScan = document.createElement('div');
+            securityScan.className = 'security-scan-notification';
+            securityScan.style.position = 'fixed';
+            securityScan.style.bottom = '20px';
+            securityScan.style.right = '20px';
+            securityScan.style.color = 'white';
+            securityScan.style.padding = '12px 24px';
+            securityScan.style.borderRadius = '8px';
+            securityScan.style.boxShadow = '0 4px 15px rgba(0,0,0,0.2)';
+            securityScan.style.zIndex = '1000';
+            securityScan.style.display = 'none';
+            securityScan.style.fontWeight = '500';
+            securityScan.style.transition = 'all 0.3s ease';
+            
+            securityScan.innerHTML = '<i class="fas fa-shield-alt"></i> Connection Secured | End-to-End Encrypted';
+            document.body.appendChild(securityScan);
+            
+            setTimeout(() => {
+                securityScan.style.display = 'flex';
+                securityScan.style.alignItems = 'center';
+                securityScan.style.gap = '10px';
+                setTimeout(() => {
+                    securityScan.style.opacity = '0';
+                    setTimeout(() => {
+                        securityScan.style.display = 'none';
+                    }, 500);
+                }, 4000);
+            }, 2000);
+
+            // Add hover effects to sections
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                section.addEventListener('mouseenter', () => {
+                    section.style.transform = 'translateY(-5px)';
+                    section.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.15)';
+                });
+                
+                section.addEventListener('mouseleave', () => {
+                    section.style.transform = 'translateY(0)';
+                    section.style.boxShadow = 'var(--shadow)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
