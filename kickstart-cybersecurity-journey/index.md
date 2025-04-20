@@ -1,0 +1,184 @@
+# 🚀 Kickstart Your Cybersecurity Journey with Mayank Kumar Choubey
+
+**👋 Hey there!**
+
+Whether you're just curious or ready to jump into this exciting world of cybersecurity, this page will guide you step-by-step.
+
+---
+
+## 👨‍💻 About Me
+
+- **Name**: Mayank Kumar Choubey
+- **Current Role**: Security Consultant at [Payatu](https://payatu.com/)
+- **Experience**: 3.8+ Years in Cybersecurity
+- **Expertise**:
+    
+    ✅ Web & API Pentesting
+    
+    ✅ Bug Bounty Hunting
+    
+    ✅ Android & iOS App Testing
+    
+    ✅ Cloud Security (AWS & more)
+    
+    ✅ Network Pentesting
+    
+
+---
+
+## 🌐 What I Can Help You With
+
+This section outlines the core areas I can help you learn. Expand each topic to explore:
+
+---
+
+### 🔰 Entry to Cybersecurity
+
+> Ideal for: Beginners, Students, and Non-Tech folks
+> 
+> 
+> 🔹 Understanding the cybersecurity landscape
+> 
+> 🔹 Skills needed (tech & non-tech)
+> 
+> 🔹 Free resources to get started
+> 
+> 🔹 Career paths & domains
+> 
+> 🔹 Busting common myths
+> 
+
+---
+
+### 💼 How to Land Jobs in Cybersecurity
+
+> Ideal for: Freshers and career switchers
+> 
+> 
+> 🔹 Resume & LinkedIn optimization
+> 
+> 🔹 Building a portfolio (even without experience!)
+> 
+> 🔹 Certifications to consider
+> 
+> 🔹 Interview prep strategy
+> 
+> 🔹 Internship vs Freelance vs Full-time
+> 
+
+---
+
+### 🎯 Approach to Bug Bounty
+
+> Ideal for: Curious tinkerers and ethical hackers
+> 
+> 
+> 🔹 Platforms to start (HackerOne, Bugcrowd, Intigriti, etc.)
+> 
+> 🔹 Methodology & mindset
+> 
+> 🔹 Common bugs to target
+> 
+> 🔹 Reporting & writing high-impact submissions
+> 
+> 🔹 Tools and browser extensions
+> 
+
+---
+
+### 🌐 Web Application Pentesting
+
+> Ideal for: Aspiring Pentesters & Bug Hunters
+> 
+> 
+> 🔹 OWASP Top 10 explained
+> 
+> 🔹 Tools: Burp Suite, Nuclei, etc.
+> 
+> 🔹 How to set up a lab
+> 
+> 🔹 Real-world vulnerable apps
+> 
+> 🔹 Methodology walkthrough
+> 
+
+---
+
+### 🔌 API Pentesting
+
+🔹 Understanding REST & GraphQL APIs
+
+🔹 Authorization issues (IDOR, etc.)
+
+🔹 Tools like Postman, Burp, etc.
+
+🔹 Hands-on testing workflow
+
+🔹 Case studies from bug bounties
+
+---
+
+### 📶 Network Pentesting
+
+🔹 Internal vs External testing
+
+🔹 Tools: Nmap, Nessus, etc.
+
+🔹 Basics of TCP/IP, Ports, Services
+
+🔹 Real-world attack simulation
+
+🔹 Report writing insights
+
+---
+
+### 📱 Mobile App Pentesting (Android & iOS)
+
+🔹 Setting up testing environment
+
+🔹 Static vs Dynamic Analysis
+
+🔹 Frida, MobSF, Objection, etc.
+
+🔹 Common flaws in mobile apps
+
+🔹 Testing real apps safely
+
+---
+
+### ☁️ Cloud Security
+
+🔹 Introduction to AWS, Azure basics
+
+🔹 Common misconfigurations
+
+🔹 Pentesting cloud services
+
+🔹 IAM, S3, EC2, etc. explained simply
+
+🔹 Tools: ScoutSuite, Prowler, Pacu
+
+---
+
+## 📩 Want to Learn From Me?
+
+Whether you're a student, beginner, or a professional looking to switch to cybersecurity, I’m here to guide you.
+
+> 🧠 1:1 Mentorships • Live Sessions •
+> 
+
+🔗 Drop me a message or connect on [LinkedIn](https://www.linkedin.com/in/mayankcby)
+
+📧 Or email: `mayankchoubey507@example.com` 
+
+---
+
+## 🔗 Resources & Tools (Coming Soon)
+
+> This section will include:
+> 
+- Learning Roadmaps
+- Free Labs & Platforms
+- Cheat Sheets
+- Tools & Scripts
+- Real Bug Bounty Reports
