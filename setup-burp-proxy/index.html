@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Set Up Burp Suite Proxy using FoxyProxy</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; line-height: 1.6; background: #f9f9f9; }
+    h1, h2, h3 { color: #333; }
+    code, pre { background: #eee; padding: 0.2rem 0.4rem; border-radius: 4px; }
+    a { color: #007acc; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .section { background: white; padding: 1.5rem; margin-bottom: 2rem; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
+    img { max-width: 100%; height: auto; margin: 1rem 0; border: 1px solid #ccc; border-radius: 6px; }
+    ul { padding-left: 1.2rem; }
+  </style>
+</head>
+<body>
+
+  <h1>🧠 How to Set Up Burp Suite Proxy using FoxyProxy (with Firefox/Chrome)</h1>
+  <p>Burp Suite is a powerful tool to inspect and manipulate HTTP/S traffic. This guide will walk you through configuring your browser with <strong>FoxyProxy</strong>, making it easier to toggle proxy settings for Burp Suite.</p>
+
+  <div class="section">
+    <h2>✅ Requirements</h2>
+    <ul>
+      <li>Burp Suite installed</li>
+      <li>FoxyProxy extension installed on your browser</li>
+      <li>Basic understanding of browser settings</li>
+      <li>Java installed (required for Burp)</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>🧩 Step 1: Download Burp Suite</h2>
+    <ol>
+      <li>Download Burp Suite Community version from: <a href="https://portswigger.net/burp/releases" target="_blank">Burp Download</a></li>
+      <li>Install & Open Burp Suite</li>
+      <li>Choose <strong>Temporary Project</strong> > Click <strong>Next</strong></li>
+      <li>Click <strong>Start Burp</strong></li>
+      <li>Navigate to <code>Proxy > Options</code></li>
+      <li>Ensure there's a listener on:<br>
+        <pre>Interface: 127.0.0.1
+Port: 8080</pre>
+      </li>
+    </ol>
+    <img src="Screenshot_2025-04-11_at_9.56.31_PM.png" alt="Burp Proxy Settings">
+  </div>
+
+  <div class="section">
+    <h2>🧱 Step 2: Install FoxyProxy Extension</h2>
+    <p>Install FoxyProxy on your browser:</p>
+    <ul>
+      <li><a href="https://chrome.google.com/webstore/detail/foxyproxy-standard" target="_blank">Chrome Extension</a></li>
+      <li><a href="https://addons.mozilla.org/en-US/firefox/addon/foxyproxy-standard/" target="_blank">Firefox Add-on</a></li>
+    </ul>
+    <img src="Screenshot_2025-04-11_at_9.57.46_PM.png" alt="FoxyProxy Addon">
+  </div>
+
+  <div class="section">
+    <h2>🌐 Step 3: Configure FoxyProxy for Burp Suite</h2>
+    <ol>
+      <li>Click the <strong>FoxyProxy</strong> icon from browser toolbar</li>
+      <li>Open <strong>Options / Settings</strong></li>
+      <li>Click <strong>Add New Proxy</strong></li>
+      <li>Configure the proxy as:<br>
+        <ul>
+          <li><strong>Title</strong>: Burp Proxy</li>
+          <li><strong>Proxy Type</strong>: HTTP</li>
+          <li><strong>Proxy IP</strong>: 127.0.0.1</li>
+          <li><strong>Port</strong>: 8080</li>
+        </ul>
+      </li>
+      <li>Save settings</li>
+      <li>Set <strong>Pattern Matching</strong> to use this proxy for all URLs (optional)</li>
+    </ol>
+    <img src="Screenshot_2025-04-11_at_9.58.44_PM.png" alt="Proxy Settings">
+  </div>
+
+  <div class="section">
+    <h2>🧪 Step 4: Enable Proxy</h2>
+    <ol>
+      <li>Select the created profile from FoxyProxy dropdown (e.g., <strong>Burp Proxy</strong>)</li>
+      <li>Ensure Burp is running</li>
+      <li>Visit any website – Burp will now capture traffic</li>
+    </ol>
+    <img src="Screenshot_2025-04-11_at_10.00.16_PM.png" alt="Enable Proxy">
+  </div>
+
+  <div class="section">
+    <h2>🔐 Step 5: Install Burp CA Certificate (for HTTPS Interception)</h2>
+    <ol>
+      <li>While Burp is running, visit: <code>http://burp</code></li>
+      <li>Download the <strong>CA Certificate</strong></li>
+      <img src="Screenshot_2025-04-11_at_10.01.48_PM.png" alt="Burp CA Certificate">
+      <li>Import certificate in your browser:<br>
+        <ul>
+          <li><strong>Firefox</strong>: Settings > Privacy & Security > View Certificates > Import</li>
+          <li><strong>Chrome</strong>: OS Settings → Security → Manage Certificates</li>
+        </ul>
+      </li>
+      <li>Import the <code>.der</code> file and trust it for identifying websites</li>
+    </ol>
+    <img src="Screenshot_2025-04-11_at_10.02.39_PM.png" alt="Import Certificate">
+  </div>
+
+  <div class="section">
+    <h2>🧹 Optional: Disable Proxy When Not Needed</h2>
+    <p>Toggle FoxyProxy to “Turn Off All Proxies” for normal browsing.</p>
+  </div>
+
+  <div class="section">
+    <h2>🚒 Troubleshooting</h2>
+    <p><strong>Issue:</strong> Nothing shows in Burp<br>
+      ✅ Check Burp is running<br>
+      ✅ FoxyProxy uses correct IP and port<br>
+      ✅ Browser cache and DNS cleared
+    </p>
+    <p><strong>Issue:</strong> HTTPS warnings<br>
+      ✅ Burp certificate is installed and trusted
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>🧠 Pro Tip</h2>
+    <p>Use different FoxyProxy profiles for each tool (Burp, ZAP, etc.) for easy switching without changing system settings.</p>
+  </div>
+
+</body>
+</html>
