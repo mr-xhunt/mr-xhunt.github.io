@@ -1,191 +1,654 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mayank Kumar Choubey - Penetration Testing & Consultancy Services</title>
+    <title>Mxhunt - Penetration Testing & Consultancy Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        :root {
+            --primary: #007bff;
+            --primary-hover: #0056b3;
+            --background: #ffffff;
+            --card-bg: #f8f9fa;
+            --text: #333333;
+            --text-light: #666666;
+            --nav-bg: #ffffff;
+            --border: #e0e0e0;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --footer-bg: #f8f9fa;
+        }
+
+        [data-theme="dark"] {
+            --primary: #0d6efd;
+            --primary-hover: #0b5ed7;
+            --background: #121212;
+            --card-bg: #1f1f1f;
+            --text: #e0e0e0;
+            --text-light: #b0b0b0;
+            --nav-bg: #1f1f1f;
+            --border: #2c2c2c;
+            --shadow: rgba(0, 0, 0, 0.5);
+            --footer-bg: #1f1f1f;
+        }
+
+        * {
             margin: 0;
             padding: 0;
-            background-color: #121212;
-            color: #e0e0e0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
         }
-        nav {
-            background-color: #1f1f1f;
-            padding: 15px;
-            text-align: center;
-            position: sticky;
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--nav-bg);
+            box-shadow: 0 2px 10px var(--shadow);
+            position: fixed;
+            width: 100%;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
         }
-        nav a {
-            color: #e0e0e0;
-            margin: 0 15px;
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
             text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s;
         }
-        nav a:hover {
-            color: #007bff;
+
+        .nav-links {
+            display: flex;
+            list-style: none;
         }
-        .hero-section {
+
+        .nav-links li {
+            margin-left: 25px;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            color: var(--primary);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://source.unsplash.com/random/1920x1080/?cybersecurity') no-repeat center center/cover;
+            color: #fff;
+            text-align: center;
+            padding: 0 20px;
+            margin-bottom: 50px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .hero h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #fff;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: #fff;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            margin-left: 15px;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px var(--shadow);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .service-card p {
+            color: var(--text-light);
+        }
+
+        .contact-section {
+            background-color: var(--card-bg);
+            padding: 50px 0;
+        }
+
+        .contact-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .contact-info p {
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+
+        .contact-info a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        .policies-section {
+            background-color: var(--background);
+        }
+
+        .policy-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .policy-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 3px 10px var(--shadow);
+        }
+
+        .policy-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        footer {
+            background-color: var(--footer-bg);
+            color: var(--text);
+            padding: 40px 0 20px;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 20px;
+        }
+
+        .footer-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .footer-section p {
+            margin-bottom: 10px;
+        }
+
+        .social-links {
             display: flex;
             justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            padding: 150px 50px;
-            background: url('dark-theme-bg.jpg') no-repeat center center/cover;
-            color: #fff;
-            height: 100vh;
-            text-align: center;
+            gap: 15px;
+            margin-top: 20px;
         }
-        .hero-section h1 {
-            font-size: 48px;
-            margin-bottom: 10px;
-            color: #007bff;
+
+        .social-links a {
+            color: var(--text);
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
         }
-        .hero-section h2 {
-            font-size: 32px;
-            margin-bottom: 20px;
-            color: #e0e0e0;
+
+        .social-links a:hover {
+            color: var(--primary);
         }
-        .hero-section p {
-            font-size: 20px;
-            margin-bottom: 40px;
+
+        .copyright {
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+            color: var(--text-light);
         }
-        .hero-section .cta {
-            background-color: #007bff;
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 5px;
-            font-size: 18px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            text-decoration: none;
-        }
-        .hero-section .cta:hover {
-            background-color: #0056b3;
-        }
-        .services, .contact, .policies {
-            padding: 60px 30px;
-            text-align: center;
-            background-color: #1f1f1f;
-        }
-        .services h2, .contact h2, .policies h2 {
-            color: #007bff;
-            margin-bottom: 40px;
-        }
-        .service-card {
-            background-color: #2c2c2c;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            padding: 30px;
-            margin: 20px;
-            border-radius: 10px;
-            display: inline-block;
-            width: 300px;
-        }
-        .service-card h3 {
-            color: #007bff;
-        }
-        .cta {
-            background-color: #007bff;
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 5px;
-            font-size: 18px;
-            cursor: pointer;
-        }
-        .cta:hover {
-            background-color: #0056b3;
-        }
-        footer {
-            background-color: #1f1f1f;
-            color: #e0e0e0;
-            padding: 20px;
-            text-align: center;
-        }
-        footer a {
-            color: #007bff;
-            text-decoration: none;
-            margin: 0 10px;
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                background-color: var(--nav-bg);
+                transition: left 0.3s ease;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero h2 {
+                font-size: 1.5rem;
+            }
+
+            .contact-content {
+                flex-direction: column;
+            }
+
+            .contact-info {
+                margin-bottom: 30px;
+            }
         }
     </style>
 </head>
 <body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">Mxhunt</a>
+                
+                <button class="hamburger" id="hamburger">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#policies">Policies</a></li>
+                </ul>
+                
+                <button class="theme-toggle" id="theme-toggle">
+                    <i class="fas fa-sun"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
 
-    <nav>
-        <a href="#services">Services</a>
-        <a href="#threat-modeling">Threat Modeling</a>
-        <a href="#contact">Contact</a>
-        <a href="#policies">Policies</a>
-    </nav>
-
-    <section class="hero-section">
-        <h1>Mayank Kumar Choubey</h1>
-        <h2>Penetration Testing & Consultancy Service</h2>
-        <p>Expert services in securing your digital assets. Specializing in Web, Cloud, and Threat Modeling solutions.</p>
-        <a href="mailto:mayankchoubey507@gmail.com" class="cta">Book a Consultation</a>
-    </section>
-
-    <section id="services" class="services">
-        <h2>Our Services</h2>
-        <div class="service-card">
-            <h3>Web Application Security</h3>
-            <p>Identify vulnerabilities and safeguard your web applications against security threats.</p>
-        </div>
-        <div class="service-card">
-            <h3>Mobile Application Security</h3>
-            <p>Secure your mobile applications from malicious attacks and data breaches.</p>
-        </div>
-        <div class="service-card">
-            <h3>Cloud Security</h3>
-            <p>Ensure that your cloud infrastructure is secure and protected from unauthorized access.</p>
-        </div>
-        <div class="service-card">
-            <h3>Threat Modeling</h3>
-            <p>Assess potential threats and prioritize your risk mitigation strategies efficiently.</p>
-        </div>
-        <div class="service-card">
-            <h3>Source Code Review</h3>
-            <p>Analyze your source code to identify security flaws before they are exploited.</p>
-        </div>
-        <div class="service-card">
-            <h3>WAF Analysis</h3>
-            <p>Test your Web Application Firewall for effectiveness in mitigating threats.</p>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Mxhunt</h1>
+            <h2>Penetration Testing & Consultancy Services</h2>
+            <p>Expert services in securing your digital assets. Specializing in Web, Cloud, and Threat Modeling solutions.</p>
+            <div>
+                <a href="#contact" class="btn">Contact Us</a>
+                <a href="#services" class="btn btn-outline">Our Services</a>
+            </div>
         </div>
     </section>
 
-    <section id="contact" class="contact">
-        <h2>Get in Touch</h2>
-        <p><strong>Email:</strong> <a href="mailto:mayankchoubey507@gmail.com" style="color: #007bff;">mayankchoubey507@gmail.com</a></p>
-        <a href="mailto:mayankchoubey507@gmail.com" class="cta">Contact Us</a>
+    <section id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Services</h2>
+                <p>We provide a comprehensive range of security solutions to protect your digital assets and infrastructure.</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Web Application Security</h3>
+                    <p>Identify vulnerabilities and safeguard your web applications against security threats.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobile Application Security</h3>
+                    <p>Secure your mobile applications from malicious attacks and data breaches.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3>Cloud Security</h3>
+                    <p>Ensure that your cloud infrastructure is secure and protected from unauthorized access.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Threat Modeling</h3>
+                    <p>Assess potential threats and prioritize your risk mitigation strategies efficiently.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Source Code Review</h3>
+                    <p>Analyze your source code to identify security flaws before they are exploited.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-filter"></i>
+                    </div>
+                    <h3>WAF Analysis</h3>
+                    <p>Test your Web Application Firewall for effectiveness in mitigating threats.</p>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <section id="policies" class="policies">
-        <h2>Policies</h2>
-        <h3>Privacy Policy</h3>
-        <p>Your privacy is important. We do not share any of your information with third parties.</p>
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Get in Touch</h2>
+                <p>Have a security concern? Contact us for a consultation.</p>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <p><i class="fas fa-envelope"></i> <a href="mailto:mayankchoubey507@gmail.com">mayankchoubey507@gmail.com</a></p>
+                    <p><i class="fas fa-clock"></i> Available Monday - Friday, 9:00 AM - 6:00 PM</p>
+                </div>
+                
+                <div>
+                    <a href="mailto:mayankchoubey507@gmail.com" class="btn">Book a Consultation</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <h3>Terms and Conditions</h3>
-        <p>During testing, if anything happens to the environment, it is solely the customer's responsibility. No case could be registered against us for any damage done to the customer's application while testing.</p>
-
-        <h3>Cancellation and Refund</h3>
-        <p>No cancellation and refund is possible for the services provided.</p>
-
-        <h3>Shipping and Delivery</h3>
-        <p>This is an online service. Delivery time will be as per the promise made while contacting via email or any other medium.</p>
+    <section id="policies" class="policies-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Policies</h2>
+                <p>Understanding our policies helps establish clear expectations and a professional relationship.</p>
+            </div>
+            
+            <div class="policy-cards">
+                <div class="policy-card">
+                    <h3>Privacy Policy</h3>
+                    <p>Your privacy is important. We do not share any of your information with third parties.</p>
+                </div>
+                
+                <div class="policy-card">
+                    <h3>Terms and Conditions</h3>
+                    <p>During testing, if anything happens to the environment, it is solely the customer's responsibility. No case could be registered against us for any damage done to the customer's application while testing.</p>
+                </div>
+                
+                <div class="policy-card">
+                    <h3>Cancellation and Refund</h3>
+                    <p>No cancellation and refund is possible for the services provided.</p>
+                </div>
+                
+                <div class="policy-card">
+                    <h3>Shipping and Delivery</h3>
+                    <p>This is an online service. Delivery time will be as per the promise made while contacting via email or any other medium.</p>
+                </div>
+            </div>
+        </div>
     </section>
 
     <footer>
-        <p>&copy; 2024 Mayank Kumar Choubey - Penetration Testing & Consultancy Services</p>
-        <a href="https://linkedin.com/in/mayankcby">LinkedIn</a>
-        <a href="https://hackerone.com/mrxhunt">HackerOne</a>
-        <a href="https://bugbase.in/profile/lemaao">Bugbase</a>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Mxhunt</h3>
+                    <p>Providing expert penetration testing and security consulting services to protect your digital assets.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <p><a href="#services">Services</a></p>
+                    <p><a href="#contact">Contact</a></p>
+                    <p><a href="#policies">Policies</a></p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="https://linkedin.com/in/mayankcby"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://hackerone.com/mrxhunt"><i class="fas fa-bug"></i></a>
+                        <a href="https://bugbase.in/profile/lemaao"><i class="fas fa-shield-alt"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Mxhunt Technologies Pvt Ltd. All Rights Reserved.</p>
+            </div>
+        </div>
     </footer>
 
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            htmlElement.setAttribute('data-theme', newTheme);
+            
+            // Update icon
+            const themeIcon = themeToggle.querySelector('i');
+            if (newTheme === 'dark') {
+                themeIcon.className = 'fas fa-sun';
+            } else {
+                themeIcon.className = 'fas fa-moon';
+            }
+        });
+        
+        // Mobile menu functionality
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            
+            // Update hamburger icon
+            const hamburgerIcon = hamburger.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                hamburgerIcon.className = 'fas fa-times';
+            } else {
+                hamburgerIcon.className = 'fas fa-bars';
+            }
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.querySelector('i').className = 'fas fa-bars';
+            });
+        });
+        
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
