@@ -3,6 +3,7 @@
 **Challenge URL**: `https://wonka.chal.cyberjousting.com`  
 **Category**: Web Exploitation  
 **Difficulty**: Medium    
+**Flag**: byuctf{i_never_liked_w1lly_wonka}
 ---
 
 ## **Challenge Overview**
