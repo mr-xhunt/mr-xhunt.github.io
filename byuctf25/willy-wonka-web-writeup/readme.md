@@ -2,10 +2,7 @@
 
 **Challenge URL**: `https://wonka.chal.cyberjousting.com`  
 **Category**: Web Exploitation  
-**Difficulty**: Medium  
-**Solved By**: [Your Name]  
-**Date**: [Date Solved]  
-
+**Difficulty**: Medium    
 ---
 
 ## **Challenge Overview**
