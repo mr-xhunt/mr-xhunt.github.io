@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Happy Rose Day ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      padding: 20px;
+      text-align: center;
+      width: 340px;
+    }
+
+    h1 {
+      color: #e11d48;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #555;
+      margin-bottom: 15px;
+    }
+
+    canvas {
+      border-radius: 15px;
+      cursor: pointer;
+      touch-action: none;
+    }
+
+    .container {
+      position: relative;
+      margin: auto;
+      width: 300px;
+      height: 300px;
+    }
+
+    .hidden-message {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      font-size: 22px;
+      color: #be123c;
+      font-weight: bold;
+      pointer-events: none;
+      text-align: center;
+    }
+
+    .rose-img {
+      width: 80px;
+      margin: 5px;
+    }
+
+    .roses {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>🌹 Happy Rose Day 🌹</h1>
+    <p>Scratch gently, Saumyaa ❤️</p>
+
+    <div class="container">
+      <div class="hidden-message" id="message">
+        <div class="roses" id="roses"></div>
+        <div id="text">💖</div>
+      </div>
+      <canvas id="scratch" width="300" height="300"></canvas>
+    </div>
+
+    <p style="margin-top:15px; font-size:14px;">Made with love 💕</p>
+  </div>
+
+  <audio id="bgMusic" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const canvas = document.getElementById('scratch');
+    const ctx = canvas.getContext('2d');
+    const rosesDiv = document.getElementById('roses');
+    const textDiv = document.getElementById('text');
+    const music = document.getElementById('bgMusic');
+
+    ctx.fillStyle = '#9f1239';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.font = '20px sans-serif';
+    ctx.fillStyle = 'white';
+    ctx.textAlign = 'center';
+    ctx.fillText('Scratch here', 150, 150);
+
+    let isDrawing = false;
+    let scratched = 0;
+
+    function addRoses(count) {
+      rosesDiv.innerHTML = '';
+      for (let i = 0; i < count; i++) {
+        const img = document.createElement('img');
+        img.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Rose_pink_1.jpg/240px-Rose_pink_1.jpg';
+        img.className = 'rose-img';
+        rosesDiv.appendChild(img);
+      }
+    }
+
+    function updateMessage() {
+      if (scratched > 10) {
+        addRoses(1);
+        textDiv.textContent = 'A rose for you, Saumyaa ❤️';
+      }
+      if (scratched > 40) {
+        addRoses(3);
+        textDiv.textContent = 'Hey Cutie 💕';
+      }
+    }
+
+    function getPosition(e) {
+      const rect = canvas.getBoundingClientRect();
+      const p = e.touches ? e.touches[0] : e;
+      return { x: p.clientX - rect.left, y: p.clientY - rect.top };
+    }
+
+    function scratch(x, y) {
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.beginPath();
+      ctx.arc(x, y, 18, 0, Math.PI * 2);
+      ctx.fill();
+      scratched++;
+      updateMessage();
+    }
+
+    canvas.addEventListener('mousedown', () => {
+      isDrawing = true;
+      music.play();
+    });
+    canvas.addEventListener('mouseup', () => isDrawing = false);
+    canvas.addEventListener('mousemove', (e) => {
+      if (!isDrawing) return;
+      const pos = getPosition(e);
+      scratch(pos.x, pos.y);
+    });
+
+    canvas.addEventListener('touchstart', () => {
+      isDrawing = true;
+      music.play();
+    });
+    canvas.addEventListener('touchend', () => isDrawing = false);
+    canvas.addEventListener('touchmove', (e) => {
+      e.preventDefault();
+      if (!isDrawing) return;
+      const pos = getPosition(e);
+      scratch(pos.x, pos.y);
+    });
+  </script>
+</body>
+</html>
