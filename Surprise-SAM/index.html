@@ -7,17 +7,19 @@
 
 <!--
   ============================================================
-  HOW TO ADD YOUR PHOTO  (two easy ways)
+  THE PHOTO
   ============================================================
-  EASIEST (on your phone): just open this page and tap the photo
-  frame. Pick her picture from your gallery. It stays saved on
-  that device. Then show her.
+  Her picture is baked into this page. To change it, edit the
+  src="..." on the <img id="photo"> tag below (search for "photo").
 
-  PERMANENT (so the photo is always baked in):
-  put your image file next to this file and write its name below,
-  e.g.  const PHOTO_URL = "her.jpg";
+  IMPORTANT: the image is loaded from the web, so the page needs
+  an internet connection to show it. If you open this file inside
+  a preview that blocks outside images, the photo will not appear.
+  Open it in a normal browser (Safari / Chrome), or host it (for
+  example on your github.io site) and the photo will show.
   ============================================================
 -->
+
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -162,9 +164,7 @@
       0 22px 50px -18px rgba(67,52,58,.45),
       0 2px 0 rgba(255,255,255,.7) inset;
     border:1px solid rgba(189,154,95,.35);
-    cursor:pointer;
     transition:transform .3s ease, box-shadow .3s ease;
-    -webkit-tap-highlight-color:transparent;
     will-change:transform;
   }
   .frame:hover{ box-shadow:0 30px 60px -20px rgba(67,52,58,.5); }
@@ -176,19 +176,13 @@
     position:relative;
   }
   .frame-inner img{ width:100%; height:100%; object-fit:cover; display:block; }
-  .placeholder{
-    text-align:center; padding:20px; color:var(--wine);
+  .photo-note{
+    display:none;
+    text-align:center; padding:22px; color:var(--wine);
+    font-size:.86rem; line-height:1.5;
   }
-  .placeholder .pico{ font-size:1.9rem; }
-  .placeholder p{ margin:10px 0 0; font-size:.84rem; letter-spacing:.04em; line-height:1.5; opacity:.85; }
-  .change-tag{
-    position:absolute; bottom:8px; right:8px;
-    background:rgba(110,42,56,.82); color:var(--paper);
-    font-size:.62rem; letter-spacing:.12em; text-transform:uppercase;
-    padding:5px 10px; border-radius:999px; opacity:0; transition:opacity .25s;
-    pointer-events:none;
-  }
-  .frame.has-photo:hover .change-tag{ opacity:1; }
+  .frame-inner.failed img{ display:none; }
+  .frame-inner.failed .photo-note{ display:block; }
 
   figcaption{
     text-align:center; margin:20px auto 0; max-width:30ch;
@@ -274,19 +268,17 @@
     <p class="topmark reveal">for you</p>
 
     <figure style="margin:0;">
-      <div class="frame reveal" id="frame" role="button" tabindex="0" aria-label="Add or change photo">
-        <div class="frame-inner" id="frameInner">
-          <div class="placeholder" id="placeholder">
-            <div class="pico">&#9786;</div>
-            <p>Tap to add her photo</p>
+      <div class="frame reveal" id="frame">
+        <div class="frame-inner">
+          <img id="photo" alt="" referrerpolicy="no-referrer"
+               src="https://raw.githubusercontent.com/mr-xhunt/mr-xhunt.github.io/refs/heads/main/Surprise-SAM/SAM_SAM.JPG" />
+          <div class="photo-note" id="photoNote">
+            If you can see this text and not the photo, open this page in a normal browser (Safari or Chrome) with internet on.
           </div>
-          <span class="change-tag">Change photo</span>
         </div>
       </div>
       <figcaption class="reveal">Some thoughts I had, looking at this.</figcaption>
     </figure>
-
-    <input type="file" id="fileInput" accept="image/*" class="hidden" />
 
     <div class="divider reveal" aria-hidden="true">
       <span></span><i class="dot"></i><span></span>
@@ -356,17 +348,10 @@
 <script>
   document.documentElement.classList.add('js');
 
-  /* ====== set a permanent photo here if you want (optional) ====== */
-  const PHOTO_URL = "https://raw.githubusercontent.com/mr-xhunt/mr-xhunt.github.io/refs/heads/main/Surprise-SAM/SAM_SAM.JPG"; // e.g. "her.jpg"  or a data: URL
-  /* =============================================================== */
-
   const cover = document.getElementById('cover');
   const letter = document.getElementById('letter');
   const openBtn = document.getElementById('openBtn');
   const frame = document.getElementById('frame');
-  const frameInner = document.getElementById('frameInner');
-  const placeholder = document.getElementById('placeholder');
-  const fileInput = document.getElementById('fileInput');
 
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -389,37 +374,13 @@
     }
   })();
 
-  /* ---- photo loading ---- */
-  function showPhoto(src){
-    frameInner.innerHTML = '<img alt="her photo" src="'+src+'"><span class="change-tag">Change photo</span>';
-    frame.classList.add('has-photo');
-  }
-  function loadInitialPhoto(){
-    if (PHOTO_URL){ showPhoto(PHOTO_URL); return; }
-    try {
-      const saved = localStorage.getItem('surprisePhoto');
-      if (saved){ showPhoto(saved); }
-    } catch(e){ /* storage blocked, fine */ }
-  }
-  loadInitialPhoto();
-
-  function pickPhoto(){ fileInput.click(); }
-  frame.addEventListener('click', pickPhoto);
-  frame.addEventListener('keydown', e => {
-    if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); pickPhoto(); }
-  });
-
-  fileInput.addEventListener('change', e => {
-    const file = e.target.files && e.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = ev => {
-      const data = ev.target.result;
-      showPhoto(data);
-      try { localStorage.setItem('surprisePhoto', data); } catch(err){ /* ignore */ }
-    };
-    reader.readAsDataURL(file);
-  });
+  /* ---- show a quiet note only if the photo fails to load ---- */
+  (function watchPhoto(){
+    const img = document.getElementById('photo');
+    const inner = img.closest('.frame-inner');
+    img.addEventListener('error', ()=> inner.classList.add('failed'));
+    if (img.complete && img.naturalWidth === 0) inner.classList.add('failed');
+  })();
 
   /* ---- reveal on scroll ---- */
   const io = new IntersectionObserver((entries)=>{
